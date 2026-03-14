@@ -1,4 +1,4 @@
-package it.davidecascella.orserservice;
+package it.davidecascella.orderservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

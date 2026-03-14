@@ -1,4 +1,4 @@
-package it.davidecascella.orserservice;
+package it.davidecascella.orderservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
