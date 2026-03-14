@@ -1,0 +1,3 @@
+it.davidecascella.config.SecurityConfigurator
+it.davidecascella.config.CorsConfig
+it.davidecascella.config.CognitoGroupsConverter
