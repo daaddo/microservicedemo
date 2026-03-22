@@ -7,13 +7,19 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * Converts AWS Cognito group claims from a JWT into Spring Security {@link GrantedAuthority}.
+ * <p>
+ * Extracts the {@code cognito:groups} claim from the token and maps each group name to
+ * an authority prefixed with {@code ROLE_}, conforming to Spring Security conventions.
+ */
 public class CognitoGroupsConverter implements Converter<Jwt, Collection<GrantedAuthority>> {
+
     /**
-     * Convert the source object of type {@code S} to target type {@code T}.
+     * Converts Cognito groups from the JWT into a collection of granted authorities.
      *
-     * @param source the source object to convert, which must be an instance of {@code S} (never {@code null})
-     * @return the converted object, which must be an instance of {@code T} (potentially {@code null})
-     * @throws IllegalArgumentException if the source cannot be converted to the desired target type
+     * @param source the JWT containing Cognito claims (must not be null)
+     * @return collection of authorities, one per group (ROLE_GROUP_NAME); empty if no groups
      */
     @Override
     public Collection<GrantedAuthority> convert(Jwt source) {

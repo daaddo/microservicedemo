@@ -14,6 +14,12 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import java.util.List;
 
+/**
+ * Spring Security configuration for OAuth2 Resource Server with JWT validation.
+ * <p>
+ * Configures HTTP security (CSRF, CORS, authorization), enables method-level security,
+ * and wires JWT authentication with Cognito group-to-authority conversion.
+ */
 @Slf4j
 @Configuration
 @EnableWebSecurity
@@ -21,6 +27,13 @@ import java.util.List;
 @AllArgsConstructor
 public class SecurityConfigurator {
 
+    /**
+     * Defines the main security filter chain for HTTP requests.
+     *
+     * @param http the HTTP security builder
+     * @return the configured filter chain
+     * @throws Exception if configuration fails
+     */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -37,8 +50,13 @@ public class SecurityConfigurator {
         return http.build();
     }
 
+    /**
+     * Provides a JWT converter that maps Cognito groups to Spring Security authorities.
+     *
+     * @return configured JwtAuthenticationConverter using {@link CognitoGroupsConverter}
+     */
     @Bean
-    public JwtAuthenticationConverter  cognitoJwtAuthenticationConverter() {
+    public JwtAuthenticationConverter cognitoJwtAuthenticationConverter() {
         JwtAuthenticationConverter converter = new JwtAuthenticationConverter();
 
         converter.setJwtGrantedAuthoritiesConverter(new CognitoGroupsConverter());

@@ -11,15 +11,15 @@ mvn install -DskipTests -q
 
 echo "Build inventory-service..."
 cd "$ROOT/inventory-service"
-docker build -t inventory-service:latest .
+docker build -t daaddo/inventory-service:latest .
 
 echo "Build order-service..."
 cd "$ROOT/order-service"
-docker build -t order-service:latest .
+docker build -t daaddo/order-service:latest .
 
 echo "Build frontend..."
 cd "$ROOT/frontend"
-docker build -t frontend:latest .
+docker build -t daaddo/frontend-service:latest .
 
 cd "$ROOT"
 echo "Build completato."

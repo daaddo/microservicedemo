@@ -1,6 +1,5 @@
 package it.davidecascella.config;
 
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +12,12 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * CORS configuration for non-production and production profiles.
+ * <p>
+ * In non-production, configures allowed origins (from {@code cors.allowed.origins}),
+ * methods, and headers. In production, returns a no-op configuration.
+ */
 @Configuration
 @Slf4j
 public class CorsConfig {
@@ -20,8 +25,16 @@ public class CorsConfig {
     @Value("${cors.allowed.origins}")
     private String allowedOrigins;
 
+    /**
+     * CORS configuration source for non-production environments.
+     * <p>
+     * Uses {@code cors.allowed.origins} for allowed origins (comma-separated).
+     * If set to {@code *}, credentials are disabled; otherwise credentials are allowed.
+     *
+     * @return CORS configuration source for all paths
+     */
     @Bean
-    @Profile("!prod") // Applica questa configurazione solo se non siamo in produzione
+    @Profile("!prod")
     public CorsConfigurationSource corsConfigurationSource() {
         log.info("Allowed origins: {}", allowedOrigins);
         List<String> split = List.of(allowedOrigins.split(","));
@@ -57,10 +70,15 @@ public class CorsConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
-
     }
+
+    /**
+     * CORS configuration source for production (no CORS applied).
+     *
+     * @return configuration source returning null (no CORS headers)
+     */
     @Bean
-    @Profile("prod") // Applica questa configurazione solo in produzione
+    @Profile("prod")
     public CorsConfigurationSource prodCorsConfigurationSource() {
         return _ -> null;
     }
