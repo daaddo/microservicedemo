@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS inventory_item (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    sku_code VARCHAR(255) NOT NULL UNIQUE,
+    quantity INT NOT NULL DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+INSERT INTO inventory_item (sku_code, quantity) VALUES ('SKU001', 100), ('SKU002', 50), ('TEST', 10);
